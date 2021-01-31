@@ -18,12 +18,12 @@ router.get("/test", (req, res) => {
 
 //get a user
 router.get("/getbytoken", async (req, res) => {
-    const bearerToken = req.headers['authorization'];
-    const bearer = bearerToken.split(' ');
-    const token = bearer[3];
+    const bearerToken = req.headers["authorization"];
+    const bearer = bearerToken.split(" ");
+    const token = bearer[1].replace(",", "");
     let decoded = jwt.verify(token, process.env.JWT_SECRET);
-    let user = await User.findOne({_id: decoded._id});
-    return res.status(200).json({user: user});
+    let user = await User.findOne({ _id: decoded._id });
+    return res.status(200).json({ user: user });
 });
 
 // Create a new user
